@@ -3,6 +3,7 @@ import RequestAccordion from "../components/request/RequestAccordion";
 
 const requests = [
   {
+    name: "Request 1",
     _id: "60452f5172351430a1f74860",
     status: "PROCESSING",
     userID: "user2",
@@ -17,6 +18,7 @@ const requests = [
 
   /* 2 */
   {
+    name: "Request 2",
     _id: "60452ffa72351430a1f74862",
     status: "PROCESSING",
     userID: "zzcheah",
@@ -31,6 +33,7 @@ const requests = [
 
   /* 3 */
   {
+    name: "Request 3",
     _id: "6045303d72351430a1f74864",
     status: "PROCESSING",
     userID: "zzcheah",

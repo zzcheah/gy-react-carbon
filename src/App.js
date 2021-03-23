@@ -2,22 +2,11 @@ import {
   Header,
   HeaderMenuButton,
   HeaderName,
-  HeaderNavigation,
-  HeaderMenu,
-  HeaderMenuItem,
-  HeaderPanel,
-  HeaderSideNavItems,
   SkipToContent,
-  Switcher,
-  SwitcherItem,
-  SwitcherDivider,
   HeaderContainer,
-  Content,
-  Button,
-  Accordion,
 } from "carbon-components-react";
 import StoryContent from "./components/layout/StoryContent";
-import RequestAccordion from "./components/request/RequestAccordion";
+import RequestForm from "./components/request/RequestForm";
 import ActionBar from "./components/shell/ActionBar";
 import LeftPanel from "./components/shell/LeftPanel";
 import MyRequests from "./pages/MyRequests";
@@ -45,7 +34,8 @@ function App() {
         )}
       />
       <StoryContent>
-        <MyRequests />
+        {/* <MyRequests /> */}
+        <RequestForm />
       </StoryContent>
     </div>
   );

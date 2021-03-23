@@ -1,9 +1,9 @@
 import { AccordionItem, Button } from "carbon-components-react";
 import {
   ArrowRight32,
-  Checkmark32,
-  Unknown32,
-  InProgress32,
+  Checkmark16,
+  Unknown16,
+  InProgress16,
 } from "@carbon/icons-react";
 
 const RequestAccordion = (props) => {
@@ -12,46 +12,53 @@ const RequestAccordion = (props) => {
       marginRight: "10px",
       display: "flex",
       marginLeft: "20px",
+      alignItems: "center",
     },
     detail: {
-      //   backgroundColor: "green",
+      // backgroundColor: "green",
       flex: "0 0 100%",
+      paddingLeft: "10px",
     },
     button: {
-      //   backgroundColor: "yellow",
+      // backgroundColor: "yellow",
       flex: "0 0 20%",
-      alignSelf: "center",
-      //   right: "0",
     },
   };
   const { req } = props;
   var icon;
   switch (req.status) {
     case "COMPLETED":
-      icon = <Checkmark32 />;
+      icon = <Checkmark16 />;
       break;
     case "PROCESSING":
-      icon = <InProgress32 />;
+      icon = <InProgress16 />;
       break;
     default:
-      icon = <Unknown32 />;
+      icon = <Unknown16 />;
   }
 
   return (
     <AccordionItem
       title={
-        <div>
+        <h5>
           <pre>
             {icon}
-            <span>{req.status + ": \t" + req._id}</span>
+            {"  " + req.status + ": \t" + req.name}
           </pre>
-        </div>
+        </h5>
       }
     >
       <div style={style.grid}>
-        <div style={style.detail}></div>
+        <pre style={style.detail}>
+          {"Docker Image \t: "}
+          {req.image}
+          <br />
+          <br />
+          {"Created At \t\t: "}
+          {req.createdAt}
+        </pre>
         <div style={style.button}>
-          <Button renderIcon={ArrowRight32} kind="ghost">
+          <Button renderIcon={ArrowRight32} kind="tertiary" size="small">
             Detail
           </Button>
         </div>
