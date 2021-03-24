@@ -3,35 +3,57 @@ import {
   SideNavDivider,
   SideNavItems,
   SideNavLink,
-  SideNavMenu,
-  SideNavMenuItem,
 } from "carbon-components-react";
 
-import { AddAlt32 } from "@carbon/icons-react";
+import { RequestQuote32, TableOfContents32 } from "@carbon/icons-react";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
 
-const LeftPanel = (props) => {
+const LeftPanel = ({ show }) => {
+  const history = useHistory();
+  const [index, setIndex] = useState(1);
+
+  const myRequestLink = (active, i) => {
+    return (
+      <SideNavLink
+        key={i}
+        isActive={active}
+        renderIcon={TableOfContents32}
+        onClick={() => {
+          setIndex(i);
+          history.push("/");
+        }}
+      >
+        My Requests
+      </SideNavLink>
+    );
+  };
+
+  const formLink = (active, i) => {
+    return (
+      <SideNavLink
+        key={i}
+        isActive={active}
+        renderIcon={RequestQuote32}
+        onClick={() => {
+          setIndex(i);
+          history.push("/requestForm");
+        }}
+      >
+        Request Form
+      </SideNavLink>
+    );
+  };
+
+  const links = [myRequestLink, formLink];
+
   return (
-    <SideNav aria-label="Side navigation" expanded={props.show}>
+    <SideNav aria-label="Side navigation" expanded={show}>
       <SideNavItems>
-        <SideNavMenu
-          renderIcon={AddAlt32}
-          title="Add Request Node"
-          isActive={true}
-        >
-          <SideNavMenuItem href="javascript:void(0)">Link</SideNavMenuItem>
-          <SideNavMenuItem isActive href="javascript:void(0)">
-            Link
-          </SideNavMenuItem>
-          <SideNavMenuItem href="javascript:void(0)">Link</SideNavMenuItem>
-        </SideNavMenu>
-        <SideNavLink
-          renderIcon={AddAlt32}
-          onClick={() => {
-            alert("haha");
-          }}
-        >
-          Add Request
-        </SideNavLink>
+        {links.map((link, i) => {
+          return link(i === index, i);
+        })}
+        <SideNavDivider />
       </SideNavItems>
     </SideNav>
   );

@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-
 import { Content } from "carbon-components-react";
 
 import cx from "classnames";
 
 const StoryContent = ({ useResponsiveOffset = true, children }) => {
-  console.log(children);
-  const [open, setOpen] = useState(false);
   const classNameFirstColumn = cx({
     "bx--col-lg-13": true,
     "bx--offset-lg-3": useResponsiveOffset,
