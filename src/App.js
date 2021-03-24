@@ -36,8 +36,7 @@ function LoadingBlur({ loading, children }) {
   );
 }
 
-function PrivateRoute({ component, ...rest }) {
-  const { user } = rest;
+function PrivateRoute({ component, user, ...rest }) {
   return (
     <Route
       {...rest}
@@ -62,7 +61,7 @@ function App() {
   // put into loading when auth loading
 
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState("ali");
+  const [user, setUser] = useState(null);
   const appValue = {
     app: {
       loading,
@@ -84,8 +83,17 @@ function App() {
               <Switch>
                 <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/signup" component={SignupPage} />
-                <PrivateRoute exact path="/" component={MyRequests} />
-                <PrivateRoute path="/requestForm" component={RequestForm} />
+                <PrivateRoute
+                  exact
+                  path="/"
+                  user={user}
+                  component={MyRequests}
+                />
+                <PrivateRoute
+                  path="/requestForm"
+                  user={user}
+                  component={RequestForm}
+                />
               </Switch>
             </StoryContent>
           </AppContext.Provider>

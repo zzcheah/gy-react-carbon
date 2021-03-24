@@ -1,7 +1,7 @@
 import { HeaderGlobalAction, HeaderGlobalBar } from "carbon-components-react";
-import { User20, Notification20 } from "@carbon/icons-react";
+import { Notification20 } from "@carbon/icons-react";
 
-const ActionBar = ({ auth, expanded, setExpanded }) => {
+const ActionBar = ({ expanded, setExpanded }) => {
   const notification = () => {
     return (
       <HeaderGlobalAction
@@ -15,26 +15,7 @@ const ActionBar = ({ auth, expanded, setExpanded }) => {
     );
   };
 
-  const userManagement = () => {
-    return (
-      <HeaderGlobalAction
-        aria-label="User Management"
-        tooltipAlignment="end"
-        isActive={expanded}
-        onClick={() => {
-          setExpanded(!expanded);
-        }}
-      >
-        <User20 />
-      </HeaderGlobalAction>
-    );
-  };
-
-  return (
-    <HeaderGlobalBar>
-      {auth ? notification() : userManagement()}
-    </HeaderGlobalBar>
-  );
+  return <HeaderGlobalBar>{notification()}</HeaderGlobalBar>;
 };
 
 export default ActionBar;
