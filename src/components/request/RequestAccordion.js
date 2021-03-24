@@ -9,10 +9,9 @@ import {
 const RequestAccordion = (props) => {
   const style = {
     grid: {
-      marginRight: "10px",
       display: "flex",
-      marginLeft: "20px",
       alignItems: "center",
+      margin: "10px 10px 5px 40px",
     },
     detail: {
       // backgroundColor: "green",

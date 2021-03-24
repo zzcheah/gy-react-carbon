@@ -1,9 +1,4 @@
-import {
-  Dropdown,
-  FileUploader,
-  FileUploaderDropContainer,
-  TextArea,
-} from "carbon-components-react";
+import { Dropdown, FileUploader, TextArea } from "carbon-components-react";
 
 const items = [
   {
@@ -50,11 +45,11 @@ const TextAreaProps = () => ({
   onClick: () => {},
 });
 
-const filenameStatuses = {
-  "Edit (edit)": "edit",
-  "Complete (complete)": "complete",
-  "Uploading (uploading)": "uploading",
-};
+// const filenameStatuses = {
+//   "Edit (edit)": "edit",
+//   "Complete (complete)": "complete",
+//   "Uploading (uploading)": "uploading",
+// };
 
 const FileUploaderProps = () => ({
   style: style.fileUploader,

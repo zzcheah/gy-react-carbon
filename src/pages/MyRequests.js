@@ -55,7 +55,7 @@ const MyRequests = () => {
       {/* <hr /> */}
       <Accordion>
         {requests ? (
-          requests.map((req) => <RequestAccordion req={req} />)
+          requests.map((req, i) => <RequestAccordion key={i} req={req} />)
         ) : (
           <AccordionSkeleton open count={4} />
         )}
