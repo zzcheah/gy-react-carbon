@@ -1,15 +1,18 @@
+import { createElement, useContext } from "react";
+
+import { Loading } from "carbon-components-react";
 import StoryContent from "./components/layout/StoryContent";
+import AppHeader from "./components/layout/AppHeader";
+
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
+import MyRequests from "./pages/MyRequests";
 import RequestForm from "./components/request/RequestForm";
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
-import MyRequests from "./pages/MyRequests";
-import AppHeader from "./components/layout/AppHeader";
-import SignupPage from "./components/auth/SignupPage";
-import LoginPage from "./components/auth/LoginPage";
-import { createElement, useState } from "react";
-import { Loading } from "carbon-components-react";
-import AppContext from "./context/AppContext";
+import ToastStatus from "./components/layout/ToastStatus";
+import { AppContext } from "./contexts/AppContext";
 
 function LoadingBlur({ loading, children }) {
   const style = {
@@ -36,12 +39,12 @@ function LoadingBlur({ loading, children }) {
   );
 }
 
-function PrivateRoute({ component, user, ...rest }) {
+function PrivateRoute({ component, auth, ...rest }) {
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        user ? (
+        auth ? (
           createElement(component)
         ) : (
           <Redirect
@@ -57,52 +60,30 @@ function PrivateRoute({ component, user, ...rest }) {
 }
 
 function App() {
-  // get auth loading and user
-  // put into loading when auth loading
-
-  const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(null);
-  const appValue = {
-    app: {
-      loading,
-      setLoading,
-    },
-    auth: {
-      user,
-      setUser,
-    },
-  };
+  const { appState } = useContext(AppContext);
+  const { loading, auth, toast } = appState;
 
   return (
-    <div>
+    <>
       <BrowserRouter>
         <LoadingBlur loading={loading}>
-          <AppHeader auth={user} />
-          <AppContext.Provider value={appValue}>
-            <StoryContent>
-              <Switch>
-                <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/signup" component={SignupPage} />
-                <PrivateRoute
-                  exact
-                  path="/"
-                  user={user}
-                  component={MyRequests}
-                />
-                <PrivateRoute
-                  path="/requestForm"
-                  user={user}
-                  component={RequestForm}
-                />
-              </Switch>
-            </StoryContent>
-          </AppContext.Provider>
+          <AppHeader auth={auth} />
+          <StoryContent>
+            <ToastStatus toast={toast}></ToastStatus>
+            <Switch>
+              <Route exact path="/login" component={LoginPage} />
+              <Route exact path="/signup" component={SignupPage} />
+              <PrivateRoute exact path="/" auth={auth} component={MyRequests} />
+              <PrivateRoute
+                path="/requestForm"
+                auth={auth}
+                component={RequestForm}
+              />
+            </Switch>
+          </StoryContent>
         </LoadingBlur>
       </BrowserRouter>
-
-      {/* <MyRequests /> */}
-      {/* <RequestForm /> */}
-    </div>
+    </>
   );
 }
 
