@@ -47,11 +47,21 @@ const SignupPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: "TOGGLE_LOADING" });
-    fetch("https://jsonplaceholder.typicode.com/todos/1") // change to signup API
+    fetch("http://localhost:2358/authenticate", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        email: newUser.email,
+        password: newUser.password,
+      }),
+    }) // change to signup API
       .then((response) => response.json())
       .then((json) => {
         setTimeout(() => {
           console.log(json);
+          console.log(e);
           addToast("success", "Successfully Registered");
           dispatch({ type: "TOGGLE_LOADING" });
           history.push("/login");
@@ -59,7 +69,7 @@ const SignupPage = () => {
       })
       .catch((err) => {
         console.log(err);
-        appState.addToast("error", "err");
+        addToast("error", err.toString());
         dispatch({ type: "TOGGLE_LOADING" });
       });
   };

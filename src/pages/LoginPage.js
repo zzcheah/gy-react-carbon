@@ -2,6 +2,7 @@ import { Button, Form, TextInput } from "carbon-components-react";
 import { useContext, useState } from "react";
 import { Link, Redirect, useHistory } from "react-router-dom";
 import { AppContext } from "../contexts/AppContext";
+import { authenticateUser } from "../service/AuthService";
 
 const style = {
   container: { paddingTop: "30px" },
@@ -35,25 +36,14 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: "TOGGLE_LOADING" });
-    fetch("https://jsonplaceholder.typicode.com/todos/1") // change to login API
-      .then((response) => response.json())
-      .then((json) => {
-        setTimeout(() => {
-          dispatch({
-            type: "SET_AUTH",
-            payload: { user: json.userId, jwt: "asdasd" },
-          });
-          addToast("success", "Successfully Logged In");
-          dispatch({ type: "TOGGLE_LOADING" });
-          history.push("/");
-        }, 2000);
-      })
-      .catch((err) => {
-        console.log(err);
-        appState.addToast("error", "err");
-        dispatch({ type: "TOGGLE_LOADING" });
-      });
+    const props = {
+      credentials,
+      dispatch,
+      history,
+      addToast,
+    };
+
+    authenticateUser(props);
   };
 
   return (
